@@ -7,7 +7,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-12 text-end">
-                        <button class="btn btn-primary" onclick="adicionarProduto()"><i class="fa fa-plus"></i> Adicionar Produto</button>
+                        <a class="btn btn-primary" href="cadastra_produto.php"><i class="fa fa-plus"></i> Adicionar Produto</a>
                     </div>
                 </div>
 
@@ -63,7 +63,7 @@
                                         <?php print str_replace('.', ',', $dados['valor']); ?>
                                     </td>
                                     <td>
-                                        <button class="btn btn-warning" onclick="editarProduto('<?php print $dados['id']; ?>', 'produto');"><i class="fa fa-edit"></i> Editar</button>
+                                        <button class="btn btn-warning" onclick="editarProduto('<?php print $dados['id']; ?>');"><i class="fa fa-edit"></i> Editar</button>
                                         <button class="btn btn-danger" onclick="deletarProduto('<?php print $dados['id']; ?>', 'produto');"><i class="fa fa-trash"></i> Deletar</button>
                                     </td>
 
@@ -81,3 +81,7 @@
 
     </div>
 </div>
+
+<form id="form_editar" name="form_editar" method="post" action="cadastra_produto.php">
+    <input type="hidden" name="id" id="id">
+</form>

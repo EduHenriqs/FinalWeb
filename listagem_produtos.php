@@ -63,8 +63,8 @@
                                         <?php print str_replace('.', ',', $dados['valor']); ?>
                                     </td>
                                     <td>
-                                        <button class="btn btn-warning" onclick="editarProduto('<?php print $dados['id']; ?>');"><i class="fa fa-edit"></i> Editar</button>
-                                        <button class="btn btn-danger" onclick="deletarProduto('<?php print $dados['id']; ?>', 'produto');"><i class="fa fa-trash"></i> Deletar</button>
+                                        <button class="btn btn-warning" onclick="editar('<?php print $dados['id']; ?>');"><i class="fa fa-edit"></i> Editar</button>
+                                        <button class="btn btn-danger" onclick="deletar('<?php print $dados['id']; ?>', 'produto');"><i class="fa fa-trash"></i> Deletar</button>
                                     </td>
 
                                 </tr>

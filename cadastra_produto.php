@@ -9,8 +9,11 @@ include "includes/cabecalho.php";
     <div class="card">
         <div class="card-header">
             <h4>
-                <?php if ($_POST['id_produto'] != '') {
+                <?php if ($_POST['id'] != '') {
                     print "Editar";
+                    $query = "SELECT produtos.nome as nome_produto, marca, categoria, categorias.nome as nome_categoria, valor FROM produtos INNER JOIN categorias ON produtos.categoria = categorias.id WHERE produtos.id = '" . $_POST['id'] . "'";
+                    $result = mysqli_query($conect, $query);
+                    $dados = mysqli_fetch_array($result);
                 } else {
                     print "Cadastrar";
                 } ?> Produto</h4>
@@ -20,11 +23,11 @@ include "includes/cabecalho.php";
                 <div class="row">
                     <div class="col-md-4">
                         <label class="form-label">Nome</label>
-                        <input type="text" name="nome_produto" id="nome_produto" require class="form-control">
+                        <input type="text" name="nome_produto" id="nome_produto" require class="form-control" value="<?php print $dados['nome_produto'] ?>">
                     </div>
                     <div class="col-md-4">
                         <label class="form-label">Marca</label>
-                        <input type="text" name="marca_produto" id="marca_produto" require class="form-control">
+                        <input type="text" name="marca_produto" id="marca_produto" require class="form-control" value="<?php print $dados['marca'] ?>">
                     </div>
                     <div class="col-md-4">
                         <label class="form-label">Categoria</label>
@@ -36,17 +39,18 @@ include "includes/cabecalho.php";
                             $result_categoria = mysqli_query($conect, $query_categoria);
 
                             while ($dados_categoria = mysqli_fetch_array($result_categoria)) { ?>
-                                <option value="<?php print $dados_categoria['id']; ?>"><?php print $dados_categoria['nome']; ?></option>
+                                <option <?php if ($dados['categoria'] == $dados_categoria['id']) print "selected"; ?> value="<?php print $dados_categoria['id']; ?>"><?php print $dados_categoria['nome']; ?></option>
                             <?php } ?>
                         </select>
                         <input type="hidden" name="id_produto" id="id_produto" value="<?php print $_POST['id']; ?>">
                     </div>
                     <div class="col-md-3 mt-3">
                         <label class="form-label">Valor</label>
-                        <input type="text" name="valor_produto" id="valor_produto" require class="form-control">
+                        <input type="text" name="valor_produto" id="valor_produto" require class="form-control" value="<?php print $dados['valor'] ?>">
                     </div>
-                    <div class="col-md-9 text-end mt-5">
+                    <div class=" col-md-9 text-end mt-5">
 
+                        <button class="btn btn-info" type="button" onclick="window.location.href='index.php'">Retornar</button>
                         <button class="btn btn-primary" type="button" onclick="cadastrarProduto()">Cadastrar</button>
                     </div>
                 </div>

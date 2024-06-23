@@ -1,0 +1,138 @@
+openapi: 3.0.0
+info:
+  title: Categoria API
+  description: API para gerenciamento de categorias.
+  version: 1.0.0
+servers:
+  - url: http://127.0.0.1/Webster
+    description: Servidor local
+
+paths:
+  /acao_categoria.php:
+    post:
+      summary: Adicionar uma nova categoria
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                nome_categoria:
+                  type: string
+                  description: Nome da categoria
+                  example: "Eletrônicos"
+      responses:
+        '200':
+          description: Categoria cadastrada com sucesso
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Categoria cadastrada com sucesso !
+        '400':
+          description: Erro ao cadastrar categoria
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Erro ao cadastrar categoria no campo Nome!
+        '409':
+          description: Categoria já cadastrada
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Categoria já cadastrada!
+        '500':
+          description: Erro ao cadastrar categoria
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Erro ao cadastrar categoria!
+
+    put:
+      summary: Atualizar uma categoria existente
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                id_categoria:
+                  type: integer
+                  description: ID da categoria
+                  example: 1
+                nome_categoria:
+                  type: string
+                  description: Nome da categoria
+                  example: "Eletrônicos"
+      responses:
+        '200':
+          description: Categoria atualizada com sucesso
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Categoria atualizada com sucesso!
+        '400':
+          description: Erro ao atualizar categoria
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Erro ao atualizar categoria no campo Nome!
+        '500':
+          description: Erro ao atualizar categoria
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Erro ao atualizar categoria!
+
+  /acao_categoria.php/{id_categoria}:
+    delete:
+      summary: Deletar uma categoria existente
+      parameters:
+        - in: path
+          name: id_categoria
+          required: true
+          schema:
+            type: integer
+          description: ID da categoria
+      responses:
+        '200':
+          description: Categoria deletada com sucesso
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Categoria deletada com sucesso!
+        '400':
+          description: Erro ao deletar categoria
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Erro ao deletar categoria ID da categoria é obrigatório!
+        '500':
+          description: Erro ao deletar categoria
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Erro ao deletar categoria!
+
+components:
+  schemas:
+    Categoria:
+      type: object
+      properties:
+        id_categoria:
+          type: integer
+          description: ID da categoria
+        nome_categoria:
+          type: string
+          description: Nome da categoria

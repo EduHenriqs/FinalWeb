@@ -1,13 +1,15 @@
+<?php include "includes/cabecalho.php"; ?>
+
 <div class="p-5 mt-5">
     <div class="container">
         <div class="card">
             <div class="card-header">
-                Listagem de Produtos
+                Listagem de Categorias
             </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-12 text-end">
-                        <a class="btn btn-primary" href="cadastra_produto.php"><i class="fa fa-plus"></i> Adicionar Produto</a>
+                        <a class="btn btn-primary" href="cadastra_categoria.php"><i class="fa fa-plus"></i> Adicionar Categorias</a>
                     </div>
                 </div>
 
@@ -32,9 +34,7 @@
                             <?php
 
                             $query = "SELECT id, nome 
-                            FROM produtos 
-                            INNER JOIN categorias 
-                            ON produtos.categoria = categorias.id";
+                            FROM categorias                        ";
                             $result = mysqli_query($conect, $query);
 
                             while ($dados = mysqli_fetch_array($result)) {
@@ -48,8 +48,8 @@
                                     </td>
 
                                     <td>
-                                        <button class="btn btn-warning" onclick="editarProduto('<?php print $dados['id']; ?>');"><i class="fa fa-edit"></i> Editar</button>
-                                        <button class="btn btn-danger" onclick="deletarProduto('<?php print $dados['id']; ?>', 'produto');"><i class="fa fa-trash"></i> Deletar</button>
+                                        <button class="btn btn-warning" onclick="editar('<?php print $dados['id']; ?>');"><i class="fa fa-edit"></i> Editar</button>
+                                        <button class="btn btn-danger" onclick="deletar('<?php print $dados['id']; ?>', 'categoria');"><i class="fa fa-trash"></i> Deletar</button>
                                     </td>
 
                                 </tr>
@@ -67,6 +67,8 @@
     </div>
 </div>
 
-<form id="form_editar" name="form_editar" method="post" action="cadastra_produto.php">
+<form id="form_editar" name="form_editar" method="post" action="cadastra_categoria.php">
     <input type="hidden" name="id" id="id">
 </form>
+
+<?php include "includes/rodape.php"; ?>

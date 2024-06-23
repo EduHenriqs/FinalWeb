@@ -1,0 +1,167 @@
+openapi: 3.0.0
+info:
+  title: Produto API
+  description: API para gerenciamento de produtos.
+  version: 1.0.0
+servers:
+  - url: http://127.0.0.1/Webster
+    description: Servidor local
+
+paths:
+  /acao_produto.php:
+    post:
+      summary: Adicionar um novo produto
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                nome_produto:
+                  type: string
+                  description: Nome do produto
+                  example: "Notebook"
+                marca_produto:
+                  type: string
+                  description: Marca do produto
+                  example: "Dell"
+                categoria_produto:
+                  type: string
+                  description: Categoria do produto
+                  example: "Eletrônicos"
+                valor_produto:
+                  type: string
+                  description: Valor do produto
+                  example: "2999.99"
+      responses:
+        '200':
+          description: Produto cadastrado com sucesso
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Produto cadastrado com sucesso !&success
+        '400':
+          description: Erro ao cadastrar produto
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Erro ao cadastrar produto no campo Nome!&warning
+        '409':
+          description: Produto já cadastrado
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Produto já cadastrado!&warning
+        '500':
+          description: Erro ao cadastrar produto
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Erro ao cadastrar produto!&warning
+
+    put:
+      summary: Atualizar um produto existente
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                id_produto:
+                  type: integer
+                  description: ID do produto
+                  example: 1
+                nome_produto:
+                  type: string
+                  description: Nome do produto
+                  example: "Notebook"
+                marca_produto:
+                  type: string
+                  description: Marca do produto
+                  example: "Dell"
+                categoria_produto:
+                  type: string
+                  description: Categoria do produto
+                  example: "Eletrônicos"
+                valor_produto:
+                  type: string
+                  description: Valor do produto
+                  example: "2999.99"
+      responses:
+        '200':
+          description: Produto atualizado com sucesso
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Produto atualizado com sucesso!&success
+        '400':
+          description: Erro ao atualizar produto
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Erro ao atualizar produto no campo Nome!&warning
+        '500':
+          description: Erro ao atualizar produto
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Erro ao atualizar produto!&warning
+
+  /acao_produto.php/{id_produto}:
+    delete:
+      summary: Deletar um produto existente
+      parameters:
+        - in: path
+          name: id_produto
+          required: true
+          schema:
+            type: integer
+          description: ID do produto
+      responses:
+        '200':
+          description: Produto deletado com sucesso
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Produto deletado com sucesso!&success
+        '400':
+          description: Erro ao deletar produto
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Erro ao deletar produto ID do produto é obrigatório!&warning
+        '500':
+          description: Erro
+
+components:
+  schemas:
+    Produto:
+      type: object
+      properties:
+        id_produto:
+          type: integer
+          description: ID do produto
+        nome_produto:
+          type: string
+          description: Nome do produto
+        marca_produto:
+          type: string
+          description: Marca do produto
+        categoria_produto:
+          type: integer
+          description: ID da Categoria do produto
+        valor_produto:
+          type: number
+          description: Valor do produto
+          format: float

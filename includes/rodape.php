@@ -33,8 +33,8 @@
     });
 
     editar = (id, tipo) => {
-
-
+        document.form_editar.id.value = id;
+        document.form_editar.submit();
     }
 
     deletar = (id, tipo) => {
@@ -51,12 +51,25 @@
             if (result.isConfirmed) {
                 $.ajax({
                     type: 'delete',
-
+                    url: tipo == 'produto' ? 'acao_produto.php' : 'acao_categoria.php',
+                    data: 'id=' + id,
+                    dataType: 'html',
+                    success: function(resposta) {
+                        let response = (resposta).split("&");
+                        console.log(response);
+                        Swal.fire("", response[0], response[1])
+                        if (response[1] == 'success') {
+                            setTimeout(function() {
+                                window.location.reload(true);
+                            }, 1500);
+                        }
+                    }
                 })
+            } else {
+                Swal.fire('', 'Operação Cancelada', 'info');
             }
         })
     }
 </script>
 
-<?php 
-
+<?php

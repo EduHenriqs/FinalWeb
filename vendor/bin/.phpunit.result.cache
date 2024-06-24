@@ -1,0 +1,1 @@
+{"version":1,"defects":{"CategoriaTest::testCadastrarCategoriaJaExistente":7,"CategoriaTest::testCadastrarCategoriaSucesso":8},"times":{"CategoriaTest::testAtualizarCategoriaComIdVazio":0.006,"CategoriaTest::testCadastrarCategoriaJaExistente":0.022,"CategoriaTest::testCadastrarCategoriaSucesso":4.086,"CategoriaTest::testDeletarCategoriaComIdVazio":0}}

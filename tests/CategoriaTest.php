@@ -3,7 +3,10 @@
 use PHPUnit\Framework\TestCase;
 
 require_once __DIR__ . '/../src/Categoria.php';
-require_once __DIR__ . '/../includes/database.php';
+if (!class_exists('Database')) {
+   require_once __DIR__ . '/../includes/database.php';
+}
+
 
 class CategoriaTest extends TestCase
 {
@@ -21,9 +24,13 @@ class CategoriaTest extends TestCase
         $resultMock = $this->createMock(mysqli_result::class);
         $resultMock->method('fetch_assoc')->willReturn(['existe' => 1]);
 
+        $stmtMock = $this->createMock(mysqli_stmt::class);
+        $stmtMock->method('execute')->willReturn(true);
+        $stmtMock->method('get_result')->willReturn($resultMock);
+
         $this->dbMock->expects($this->once())
-            ->method('query')
-            ->willReturn($resultMock);
+            ->method('prepare')
+            ->willReturn($stmtMock);
 
         $resultado = $this->categoria->cadastrarCategoria("Categoria Existente");
 
@@ -38,16 +45,22 @@ class CategoriaTest extends TestCase
         $resultMock2 = $this->createMock(mysqli_result::class);
         $resultMock2->method('fetch_assoc')->willReturn(['count' => 1]);
 
-        $mysqli = $this->getMockBuilder(mysqli::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $mysqli->expects($this->exactly(3))
-            ->method('query')
-            ->willReturnOnConsecutiveCalls($resultMock1, true, $resultMock2);
+        $stmtMock1 = $this->createMock(mysqli_stmt::class);
+        $stmtMock1->method('execute')->willReturn(true);
+        $stmtMock1->method('get_result')->willReturn($resultMock1);
 
-        $categoria = new Categoria(new Database('localhost', 'root', '', 'cadastrinhocadastroso', $mysqli));
+        $stmtMock2 = $this->createMock(mysqli_stmt::class);
+        $stmtMock2->method('execute')->willReturn(true);
 
-        $resultado = $categoria->cadastrarCategoria("Nova Categoria");
+        $stmtMock3 = $this->createMock(mysqli_stmt::class);
+        $stmtMock3->method('execute')->willReturn(true);
+        $stmtMock3->method('get_result')->willReturn($resultMock2);
+
+        $this->dbMock->expects($this->exactly(3))
+            ->method('prepare')
+            ->willReturnOnConsecutiveCalls($stmtMock1, $stmtMock2, $stmtMock3);
+
+        $resultado = $this->categoria->cadastrarCategoria("Nova Categoria");
 
         $this->assertEquals('Categoria cadastrada com sucesso!&success', $resultado);
     }

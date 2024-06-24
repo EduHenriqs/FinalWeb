@@ -35,7 +35,7 @@ class Database {
     }
 
     public function __destruct() {
-        $this->close(); 
+        $this->close();
     }
 }
 ?>

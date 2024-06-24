@@ -1,15 +1,14 @@
 <?php
 
-include "includes/database.php";
-include "src/Categoria.php";
-include "includes/conect.php";
+include_once "includes/database.php";
+include_once "src/Categoria.php";
+include_once "includes/conect.php";
 error_reporting(0);
 
 $_PUT = array();
 $_DELETE = array();
 
-function parse_raw_http_request($input)
-{
+function parse_raw_http_request($input) {
     $a_data = array();
     $input = urldecode($input);
     parse_str($input, $a_data);
@@ -54,3 +53,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
 }
 
 $db->__destruct();
+
+?>
